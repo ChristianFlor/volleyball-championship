@@ -98,8 +98,7 @@ public class Assistant implements Comparable<Assistant> {
 	public String toString() {
 		return "FN: " + firstName + "\t ID: " + id + "\n";
 	}
-	//String id ,String firstName, String lastName, String email, String gender,
-	//String country, String pathForPhoto, Date birthDay
+
 	public static Competitor cast(Espectator c) {
 		return new Competitor(c.getId(), c.getFirstName(), c.getLastName(), c.getEmail(), c.getGender(), c.getCountry(), c.getPathForPhoto(), c.getBirthDay());
 	}

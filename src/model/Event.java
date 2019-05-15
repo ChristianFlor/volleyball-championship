@@ -23,13 +23,13 @@ public class Event {
 		BufferedReader br = new BufferedReader(new FileReader(DATA));
 		String line = br.readLine();
 		line = br.readLine();
-		int counter = 0;
-		while(line != null && counter < 10) {
+		int limit = 0;
+		while(line != null && limit < 10) {
 			String[] info = line.split(",");
 			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new Date(Long.parseLong(info[7])));
 			addEspectator(a);
 			line = br.readLine();
-			counter++;
+			limit++;
 		}
 		br.close();
 	}
@@ -60,7 +60,11 @@ public class Event {
 		}
 	}
 	
-	public Espectator searchEspectator(String id, Espectator current) {
+	public Espectator searchEspectator(String id) {
+		return searchEspectator(id, root);
+	}
+	
+	private Espectator searchEspectator(String id, Espectator current) {
 		if(current != null) {
 			if(current.getId().compareTo(id) > 0) {
 				return searchEspectator(id, current.getLeft());
@@ -73,25 +77,26 @@ public class Event {
 		return null;
 	}
 	
-	public String traverse(Espectator current) {
-		String s = "";
-		if(current != null) {
-			if(current.getLeft() != null) {
-				s += traverse(current.getLeft());
-			} else {
-				return current + traverse(current.getRight());
-			}
-			s += current;
-			if(current.getRight() != null) {
-				s += traverse(current.getRight());
-			} else {
-				return traverse(current.getLeft()) + current;
-			}
-		}
-		return s;
+	public Competitor searchCompetitor(String id) {
+		return searchCompetitor(id, first);
 	}
 	
-	public List<Espectator> inorderListOfEspectators(Espectator current){
+	private Competitor searchCompetitor(String id, Competitor current) {
+		if(current != null) {
+			if(current.getId().compareTo(id) == 0) {
+				return current;
+			} else {
+				return searchCompetitor(id, current.getNext());
+			}
+		}
+		return null;
+	}
+	
+	public List<Espectator> inorderListOfEspectators() {
+		return inorderListOfEspectators(root);
+	}
+	
+	private List<Espectator> inorderListOfEspectators(Espectator current){
 		List<Espectator> l = new ArrayList<Espectator>();
 		if(current != null) {
 			l.addAll(inorderListOfEspectators(current.getLeft()));
@@ -105,7 +110,7 @@ public class Event {
 		selectCompetitors(root);
 	}
 	
-	public void selectCompetitors(Espectator current) {
+	private void selectCompetitors(Espectator current) {
 		if(current != null) {
 			Random r = new Random();
 			selectCompetitors(current.getLeft());
@@ -120,7 +125,7 @@ public class Event {
 		addCompetitor(c, first);
 	}
 	
-	public void addCompetitor(Competitor c, Competitor current) {
+	private void addCompetitor(Competitor c, Competitor current) {
 		if(first == null) {
 			first = c;
 		} else {
