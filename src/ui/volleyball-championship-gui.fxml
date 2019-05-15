@@ -3,30 +3,39 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="746.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VolleyballEventController">
-  <tabs>
-    <Tab text="Datos">
-         <content>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <ImageView fitHeight="102.0" fitWidth="747.0" pickOnBounds="true" preserveRatio="true" />
-                  <HBox prefHeight="344.0" prefWidth="746.0">
-                     <children>
-                        <VBox fillWidth="false" prefHeight="344.0" prefWidth="321.0" spacing="5.0">
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VolleyballEventController">
+   <center>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="746.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Datos">
+               <content>
+                  <BorderPane>
+                     <top>
+                        <ImageView fitHeight="92.0" fitWidth="749.0" pickOnBounds="true" preserveRatio="true" translateX="-177.0" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../../../../../../Downloads/Best%20of%20Black%20Friday%20(1)/3.png" />
+                           </image>
+                        </ImageView>
+                     </top>
+                     <left>
+                        <VBox fillWidth="false" prefHeight="353.0" prefWidth="364.0" spacing="5.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Cargar datos">
+                              <Label text="&gt;&gt;Load Data">
                                  <font>
                                     <Font name="Consolas Bold" size="24.0" />
                                  </font>
@@ -34,15 +43,15 @@
                               <HBox prefHeight="31.0" prefWidth="348.0" spacing="8.0">
                                  <children>
                                     <TextField fx:id="dataPath" prefHeight="25.0" prefWidth="174.0" />
-                                    <Button mnemonicParsing="false" onAction="#explore" text="Explorar" />
-                                    <Button mnemonicParsing="false" onAction="#load" text="Cargar" />
+                                    <Button mnemonicParsing="false" onAction="#explore" text="Explore" />
+                                    <Button mnemonicParsing="false" onAction="#load" text="Load" />
                                  </children>
                                  <padding>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </padding>
                               </HBox>
                               <Label fx:id="msgForLoad" />
-                              <Label text="Buscar espectadores">
+                              <Label text="&gt;Search spectators">
                                  <font>
                                     <Font name="Consolas Bold" size="24.0" />
                                  </font>
@@ -55,23 +64,25 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="idEspec" prefHeight="25.0" prefWidth="174.0" />
-                                    <Button mnemonicParsing="false" onAction="#searchEspec" text="Buscar" />
+                                    <Button mnemonicParsing="false" onAction="#searchEspec" text="Search" />
                                     <Label fx:id="timeCheck">
                                        <font>
                                           <Font name="Consolas" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Label text="Time: xx ms" />
                                  </children>
                                  <padding>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </padding>
                               </HBox>
+                              <Label text="No se encontro el espectador con el id xxxx" translateX="40.0" />
                               <Label fx:id="msgForSearchEspec">
                                  <font>
                                     <Font name="Consolas" size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Buscar participante">
+                              <Label text="&gt;Search participant">
                                  <font>
                                     <Font name="Consolas Bold" size="24.0" />
                                  </font>
@@ -84,17 +95,19 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="idComp" prefHeight="25.0" prefWidth="174.0" />
-                                    <Button mnemonicParsing="false" onAction="#searchComp" text="Buscar" />
+                                    <Button mnemonicParsing="false" onAction="#searchComp" text="Search" />
                                     <Label fx:id="timeCheck1">
                                        <font>
                                           <Font name="Consolas" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Label text="Time: xx ms" />
                                  </children>
                                  <padding>
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </padding>
                               </HBox>
+                              <Label text="No se encontro el espectador con el id xxxx" translateX="40.0" />
                               <Label fx:id="msgForSearchComp">
                                  <font>
                                     <Font name="Consolas" size="14.0" />
@@ -105,69 +118,103 @@
                               <Insets left="8.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="344.0" prefWidth="425.0" spacing="10.0">
+                     </left>
+                     <right>
+                        <HBox prefHeight="344.0" prefWidth="746.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Ver datos">
+                              <VBox alignment="TOP_CENTER" prefHeight="344.0" prefWidth="382.0" spacing="10.0">
+                                 <children>
+                                    <Label text="&gt;See Data">
+                                       <font>
+                                          <Font name="Consolas Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="foundCompImg" fitHeight="140.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" />
+                                    <GridPane prefHeight="156.0" prefWidth="356.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="214.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="211.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label fx:id="dFirstName" text="Nombre: ">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dLastName" text="Apellido: " GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dEmail" text="Email: " GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dGender" text="Género: " GridPane.columnIndex="1">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dCountry" text="País: " GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dBirthday" text="F. nacimiento: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="Consolas" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </right>
+                  </BorderPane>
+               </content>
+          </Tab>
+          <Tab text="Gráficos">
+            <content>
+                  <BorderPane>
+                     <bottom>
+                        <HBox prefHeight="59.0" prefWidth="746.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label text="Options">
                                  <font>
                                     <Font name="Consolas Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <ImageView fx:id="foundCompImg" fitHeight="140.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" />
-                              <GridPane prefHeight="156.0" prefWidth="425.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="214.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="211.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label fx:id="dFirstName" text="Nombre: ">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dLastName" text="Apellido: " GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dEmail" text="Email: " GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dGender" text="Género: " GridPane.columnIndex="1">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dCountry" text="País: " GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dBirthday" text="F. nacimiento: " GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="Consolas" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </GridPane>
+                              <Button mnemonicParsing="false" text="Participantes" translateX="40.0" />
+                              <Button mnemonicParsing="false" text="Espectadores" translateX="80.0" />
                            </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </content>
-    </Tab>
-    <Tab text="Gráficos">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+                        </HBox>
+                     </bottom>
+                     <center>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <Pane prefHeight="249.0" prefWidth="312.0" />
+                           </content>
+                        </ScrollPane>
+                     </center>
+                     <top>
+                        <Label text="Draw Structure" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </top>
+                  </BorderPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
