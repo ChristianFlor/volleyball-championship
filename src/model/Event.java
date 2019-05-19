@@ -106,6 +106,20 @@ public class Event {
 		return l;
 	}
 	
+	public List<Espectator> preorderListOfEspectators(){
+		List<Espectator> lis= new ArrayList<>();
+		preorderListOfEspectators(root,lis);
+		return lis;
+	}
+	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
+		if(current != null) {
+			lis.add(current);
+			preorderListOfEspectators(current.getLeft(),lis);
+			preorderListOfEspectators(current.getRight(),lis);
+			
+		}
+	}
+	
 	public void selectCompetitors() {
 		selectCompetitors(root);
 	}
