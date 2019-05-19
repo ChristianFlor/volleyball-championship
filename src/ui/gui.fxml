@@ -125,7 +125,7 @@
                                                 <TextField fx:id="dataPath" prefHeight="16.0" prefWidth="138.0" />
                                                 <ImageView fitHeight="39.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../Downloads/carpeta.png" />
+                                                      <Image url="@../uiImg/icons/carpeta.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button mnemonicParsing="false" onAction="#explore" prefHeight="39.0" prefWidth="77.0" text="Explore" />
@@ -160,7 +160,7 @@
                                                 <TextField fx:id="idEspec" prefHeight="37.0" prefWidth="159.0" />
                                                 <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../Downloads/busqueda.png" />
+                                                      <Image url="@../uiImg/icons/busqueda.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button mnemonicParsing="false" onAction="#searchEspec" prefHeight="39.0" prefWidth="92.0" text="Search" />
@@ -195,7 +195,7 @@
                                                 <TextField fx:id="idComp" prefHeight="25.0" prefWidth="174.0" />
                                                 <ImageView fitHeight="35.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../../Downloads/busqueda%20(1).png" />
+                                                      <Image url="@../uiImg/icons/busqueda%20(1).png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button mnemonicParsing="false" onAction="#searchComp" prefHeight="39.0" prefWidth="85.0" text="Search" />
