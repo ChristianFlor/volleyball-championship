@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ public class Event {
 		int limit = 0;
 		while(line != null && limit < 10) {
 			String[] info = line.split(",");
-			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new Date(Long.parseLong(info[7])));
+			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
 			addEspectator(a);
 			line = br.readLine();
 			limit++;

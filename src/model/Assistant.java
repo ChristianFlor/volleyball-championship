@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class Assistant implements Comparable<Assistant> {
 	
 	private String firstName;
@@ -11,10 +9,10 @@ public class Assistant implements Comparable<Assistant> {
 	private String gender;
 	private String country;
 	private String pathForPhoto;
-	private Date birthDay;
+	private SimpleDate birthDay;
 	
 	public Assistant(String id ,String firstName, String lastName, String email, String gender,
-			String country, String pathForPhoto, Date birthDay) {
+			String country, String pathForPhoto, SimpleDate birthDay) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
@@ -81,11 +79,11 @@ public class Assistant implements Comparable<Assistant> {
 		this.pathForPhoto = pathForPhoto;
 	}
 
-	public Date getBirthDay() {
+	public SimpleDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(SimpleDate birthDay) {
 		this.birthDay = birthDay;
 	}
 	

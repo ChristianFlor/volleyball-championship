@@ -1,14 +1,12 @@
 package model;
 
-import java.util.Date;
-
 public class Espectator extends Assistant {
 
 	private Espectator left;
 	private Espectator right;
 	
 	public Espectator(String id, String firstName, String lastName, String email, String gender, String country,
-			String pathForPhoto, Date birthDay) {
+			String pathForPhoto, SimpleDate birthDay) {
 		super(id, firstName, lastName, email, gender, country, pathForPhoto, birthDay);
 		
 	}

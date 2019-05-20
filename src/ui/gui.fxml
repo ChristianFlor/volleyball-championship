@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VolleyballEventController">
+<StackPane prefHeight="479.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.VolleyballEventController">
    <children>
       <BorderPane>
          <top>
@@ -46,10 +46,10 @@
                      <content>
                         <BorderPane prefHeight="452.0" prefWidth="805.0">
                            <right>
-                              <VBox fillWidth="false" focusTraversable="true" prefHeight="363.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+                              <VBox fillWidth="false" focusTraversable="true" prefHeight="365.0" prefWidth="391.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <Separator prefHeight="17.0" prefWidth="364.0" visible="false" />
-                                    <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="325.0" prefWidth="340.0" spacing="10.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
+                                    <VBox alignment="CENTER" fillWidth="false" prefHeight="328.0" prefWidth="386.0" spacing="10.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
                                        <children>
                                           <Label text="See Data">
                                              <font>
@@ -61,10 +61,10 @@
                                                 <Image url="@../uiImg/icons/Iconos-clientes-03.png" />
                                              </image>
                                           </ImageView>
-                                          <GridPane alignment="CENTER_RIGHT" prefHeight="156.0" prefWidth="343.0">
+                                          <GridPane alignment="CENTER_RIGHT" prefHeight="146.0" prefWidth="377.0">
                                              <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="214.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="211.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.0" minWidth="10.0" prefWidth="189.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="188.0" />
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -72,34 +72,34 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Label fx:id="dFirstName" text="Nombre: ">
+                                                <Label fx:id="dFirstName" text="Name: ">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="dLastName" text="Apellido: " GridPane.rowIndex="1">
+                                                <Label fx:id="dLastName" text="LastName:" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
                                                 <Label fx:id="dEmail" text="Email: " GridPane.rowIndex="2">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="dGender" text="Género: " GridPane.columnIndex="1">
+                                                <Label fx:id="dGender" text="Gender:" GridPane.columnIndex="1">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="dCountry" text="País: " GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <Label fx:id="dCountry" text="Country: " GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="dBirthday" text="F. nacimiento: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Label fx:id="dBirthday" text="Birthdate: " GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <font>
-                                                      <Font name="Consolas" size="14.0" />
+                                                      <Font name="Verdana" size="12.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -113,7 +113,7 @@
                               <VBox fillWidth="false" focusTraversable="true" prefHeight="363.0" prefWidth="434.0" spacing="5.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <Separator prefHeight="14.0" prefWidth="392.0" visible="false" />
-                                    <VBox alignment="CENTER" prefHeight="101.0" prefWidth="431.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
+                                    <VBox alignment="CENTER" prefHeight="101.0" prefWidth="417.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
                                        <children>
                                           <Label contentDisplay="CENTER" prefHeight="28.0" prefWidth="214.0" text="Load Data">
                                              <font>
@@ -122,7 +122,11 @@
                                           </Label>
                                           <HBox alignment="CENTER" focusTraversable="true" prefHeight="50.0" prefWidth="413.0" spacing="8.0">
                                              <children>
-                                                <TextField fx:id="dataPath" prefHeight="16.0" prefWidth="138.0" />
+                                                <TextField fx:id="dataPath" prefHeight="16.0" prefWidth="138.0" style="-fx-text-fill: black;">
+                                                   <font>
+                                                      <Font size="5.0" />
+                                                   </font>
+                                                </TextField>
                                                 <ImageView fitHeight="39.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../uiImg/icons/carpeta.png" />
@@ -140,10 +144,9 @@
                                                 <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                              </padding>
                                           </HBox>
-                                          <Label text="Los posibles asistentes al evento han sido cargados exitosamente" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="108.0" prefWidth="425.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
+                                    <VBox alignment="CENTER" prefHeight="108.0" prefWidth="419.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
                                        <children>
                                           <Label text="Search spectators">
                                              <font>
@@ -157,28 +160,22 @@
                                                       <Font name="Consolas" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="idEspec" prefHeight="37.0" prefWidth="159.0" />
+                                                <TextField fx:id="idEspec" prefHeight="37.0" prefWidth="159.0" style="-fx-text-fill: black;" />
                                                 <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../uiImg/icons/busqueda.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button mnemonicParsing="false" onAction="#searchEspec" prefHeight="39.0" prefWidth="92.0" text="Search" />
-                                                <Label fx:id="timeCheck">
-                                                   <font>
-                                                      <Font name="Consolas" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label prefHeight="17.0" prefWidth="84.0" text="Time: xx ms" />
+                                                <Label fx:id="timeCheck" prefHeight="17.0" prefWidth="84.0" text="Time: xx ms" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                              </padding>
                                           </HBox>
-                                          <Label text="No se encontro el espectador con el id xxxx" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="106.0" prefWidth="424.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
+                                    <VBox alignment="CENTER" prefHeight="106.0" prefWidth="418.0" style="-fx-border-color: #4285F4; -fx-border-width: 2; -fx-border-radius: 15;">
                                        <children>
                                           <Label text="Search participant">
                                              <font>
@@ -192,25 +189,19 @@
                                                       <Font name="Consolas" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="idComp" prefHeight="25.0" prefWidth="174.0" />
+                                                <TextField fx:id="idComp" prefHeight="25.0" prefWidth="174.0" style="-fx-text-fill: black;" />
                                                 <ImageView fitHeight="35.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../uiImg/icons/busqueda%20(1).png" />
                                                    </image>
                                                 </ImageView>
                                                 <Button mnemonicParsing="false" onAction="#searchComp" prefHeight="39.0" prefWidth="85.0" text="Search" />
-                                                <Label fx:id="timeCheck1">
-                                                   <font>
-                                                      <Font name="Consolas" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label prefHeight="17.0" prefWidth="76.0" text="Time: xx ms" />
+                                                <Label fx:id="timeCheck1" prefHeight="17.0" prefWidth="76.0" text="Time: xx ms" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                              </padding>
                                           </HBox>
-                                          <Label text="No se encontro el espectador con el id xxxx" />
                                        </children>
                                     </VBox>
                                  </children>
