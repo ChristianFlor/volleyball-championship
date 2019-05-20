@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Event {
 	
-	public static final String DATA = "data/assistants-data.csv";
+	//public static final String DATA = "data/assistants-data.csv";
 
 	private Espectator root;
 	private Competitor first;
@@ -19,8 +19,8 @@ public class Event {
 		
 	}
 	
-	public void load() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(DATA));
+	public void load(String path) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(path));
 		String line = br.readLine();
 		line = br.readLine();
 		int limit = 0;
