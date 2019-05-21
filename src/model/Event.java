@@ -13,6 +13,8 @@ public class Event {
 
 	private Espectator root;
 	private Competitor first;
+	private double width;
+	public static final double INCREASEMENT = 90.0;
 	
 	public Event() {
 		
@@ -23,7 +25,7 @@ public class Event {
 		String line = br.readLine();
 		line = br.readLine();
 		int limit = 0;
-		while(line != null && limit < 10) {
+		while(line != null && limit < 5) {
 			String[] info = line.split(",");
 			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
 			addEspectator(a);
@@ -32,7 +34,95 @@ public class Event {
 		}
 		br.close();
 	}
+	public void assignePositions() {
+		assignePositions(root, 0, this.getWidth(), 0, this.getHeight() / this.getHeight());
+	}
 	
+	private void assignePositions(Espectator current, double xMin, double xMax, double yMin, double yMax) {
+		current.setX((xMin + xMax) / 2);
+		current.setY(yMin + yMax / 2);
+		if(current.getLeft() != null) {
+			assignePositions(current.getLeft(), xMin, (xMin + xMax) / 2, yMin + yMax, yMax);
+		}
+		if(current.getRight() != null) {
+			assignePositions(current.getRight(), (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
+		}
+	}
+	public Espectator min(Espectator current) {
+		if(current.getLeft() != null) {
+			return min(current.getLeft());
+		}
+		return current;
+	}
+	
+	public Espectator max(Espectator current) {
+		if(current.getRight() != null) {
+			return min(current.getRight());
+		}
+		return current;
+	}
+	@Override
+	public String toString() {
+		return printNodes(root);
+	}
+	
+	public String printNodes(Espectator current) {
+		String s = "";
+		if(current != null) {
+			s += printNodes(current.getLeft());
+			s += "Node: " + current + " Left: " + current.getLeft() 
+					+ " Right: " + current.getRight() + "\n~~~~~~~~~~~~~~~~~~~~~~~~\n";
+			s += printNodes(current.getRight());
+		}
+		return s;
+	}
+	
+	public void increaseBounds() {
+		double x = increaseBoundsX(root);
+		if(x >= width) {
+			this.width = x+20;
+		}
+		System.out.println(x);
+	}
+	
+	private double increaseBoundsX(Espectator current) {
+		if(current != null) {
+			double l = increaseBoundsX(current.getLeft());
+			double r = increaseBoundsX(current.getRight());
+			if(l > current.getX()) {
+				if(l < r) {
+					return r;
+				}
+				return l;
+			} else if (r > current.getX()){
+				if(r < l) {
+					return l;
+				}
+				return r;
+			} else {
+				return current.getX();
+			}
+		}
+		return 0;
+	}
+	public Espectator parent(Espectator node) {
+		return parent(node, root);
+	}
+	
+	private Espectator parent(Espectator node, Espectator current) {
+		if(node != current) {
+			if(current.getLeft() == node || current.getRight() == node) {
+				return current;
+			} else {
+				if(node.getCountry().compareTo(current.getCountry()) <= 0) {
+					return parent(node, current.getLeft());
+				} else {
+					return parent(node, current.getRight());
+				}
+			}
+		}
+		return null;
+	}
 	public void addEspectator(Espectator a) {
 		addEspectator(a, root);
 	}
@@ -40,6 +130,8 @@ public class Event {
 	public void addEspectator(Espectator a, Espectator current) {
 		if(root == null) {
 			root = a;
+			this.root.setX(width/2);
+			this.root.setY(50);
 		} else {
 			if(a.compareTo(current) < 0) {
 				if(current.getLeft() == null) {
@@ -175,6 +267,27 @@ public class Event {
 
 	public void setFirst(Competitor first) {
 		this.first = first;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return getHeight(root);
+	}
+	public int getHeight(Espectator current) {
+		if(current != null) {
+			return Math.max(getHeight(current.getLeft()), getHeight(current.getRight())) + 1;
+		}
+		return 0;
+	}
+
+	public void setHeight(double height) {
 	}
 	
 }

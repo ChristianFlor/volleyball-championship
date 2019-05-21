@@ -11,6 +11,9 @@ public class Assistant implements Comparable<Assistant> {
 	private String pathForPhoto;
 	private SimpleDate birthDay;
 	
+	private double x;
+	private double y;
+	
 	public Assistant(String id ,String firstName, String lastName, String email, String gender,
 			String country, String pathForPhoto, SimpleDate birthDay) {
 		this.firstName = firstName;
@@ -21,6 +24,8 @@ public class Assistant implements Comparable<Assistant> {
 		this.country = country;
 		this.pathForPhoto = pathForPhoto;
 		this.birthDay = birthDay;
+		this.setX(x);
+		this.setY(y);
 	}
 
 	public String getFirstName() {
@@ -99,5 +104,21 @@ public class Assistant implements Comparable<Assistant> {
 
 	public static Competitor cast(Espectator c) {
 		return new Competitor(c.getId(), c.getFirstName(), c.getLastName(), c.getEmail(), c.getGender(), c.getCountry(), c.getPathForPhoto(), c.getBirthDay());
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
 	}
 }

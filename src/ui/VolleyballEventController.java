@@ -9,16 +9,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Competitor;
 import model.Espectator;
 import model.Event;
-
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 public class VolleyballEventController {
 	private Event e;
@@ -56,7 +57,9 @@ public class VolleyballEventController {
 
     @FXML
     private Label timeCheck1;
-    
+
+    @FXML
+    private Canvas canva;
     @FXML
     public void initialize() {
     	
@@ -87,6 +90,9 @@ public class VolleyballEventController {
     			e = new Event();
 				e.load(dataPath.getText());
 				e.selectCompetitors();
+				Alert a = new Alert(AlertType.CONFIRMATION);
+	    		a.setContentText("The data is load correct");
+	    		a.show();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -154,7 +160,34 @@ public class VolleyballEventController {
 
     @FXML
     void spectators(ActionEvent event) {
-    	
+    	this.e.setWidth(canva.getWidth());
+    	this.e.setHeight(canva.getHeight());
+
+    	/*for (int i = 0; i < 10; i++) {
+    		this.e.addNode(i);
+			//this.tree.addNode((int)(Math.random()*50));
+		}*/
+    	this.e.assignePositions();
+    	this.canva.getGraphicsContext2D().setLineWidth(3);
+    	double ny = e.getHeight()*90+50;
+    	if(ny > canva.getHeight()) {
+    		canva.setHeight(ny);
+    	}
+    	e.increaseBounds();
+    	this.canva.setWidth(e.getWidth());
+    	draw(e.getRoot(), e.getRoot());
+    }
+    public void draw(Espectator node, Espectator parent) {
+    	if(node != null) {
+    		canva.getGraphicsContext2D().strokeLine(parent.getX()+25, parent.getY()+25, node.getX()+25, node.getY()+25);
+    		canva.getGraphicsContext2D().setFill(Color.YELLOW);
+    		canva.getGraphicsContext2D().fillOval(node.getX(), node.getY(), 50, 50);
+    		canva.getGraphicsContext2D().setFill(Color.BLACK);
+    		canva.getGraphicsContext2D().strokeOval(node.getX(), node.getY(), 50, 50);
+    		canva.getGraphicsContext2D().fillText(node.getCountry()+"", node.getX()+25, node.getY()+25);
+    		draw(node.getLeft(), node);
+        	draw(node.getRight(), node);
+    	}
     }
     @FXML
     void participants(ActionEvent event) {
