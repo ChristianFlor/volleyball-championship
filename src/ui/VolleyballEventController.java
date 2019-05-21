@@ -101,59 +101,66 @@ public class VolleyballEventController {
 
     @FXML
     void searchEspec(ActionEvent event) {
-    	String id = idEspec.getText();
-    	long start = System.currentTimeMillis();
-		Espectator esp = e.searchEspectator(id);
-		long endTime = (System.currentTimeMillis() - start);
-       	timeCheck.setText("Time: "+endTime);
-       
-    	if(id != "" && id != null) {
-    		
-    		if(esp != null) {
-    			foundCompImg.setImage(new Image(esp.getPathForPhoto()));
-    			dFirstName.setText("Name: "+esp.getFirstName());
-    			dLastName.setText("Last Name: "+esp.getLastName());
-    			dEmail.setText("Email: "+esp.getEmail());
-    			dGender.setText("Gender: "+esp.getGender());
-    			dCountry.setText("Country: "+esp.getCountry());
-    			dBirthday.setText("Birthdate: "+esp.getBirthDay());
-    		}else {
-    			Alert a = new Alert(AlertType.INFORMATION);
-        		a.setContentText("Competitor photo not found");
+    	if(e != null) {
+    		String id = idEspec.getText();
+        	long start = System.currentTimeMillis();
+    		Espectator esp = e.searchEspectator(id);
+    		long endTime = (System.currentTimeMillis() - start);
+           	timeCheck.setText("Time: "+endTime);
+        	if(id != "" && id != null) {
+        		if(esp != null) {
+        			foundCompImg.setImage(new Image(esp.getPathForPhoto()));
+        			dFirstName.setText("Name: "+esp.getFirstName());
+        			dLastName.setText("Last Name: "+esp.getLastName());
+        			dEmail.setText("Email: "+esp.getEmail());
+        			dGender.setText("Gender: "+esp.getGender());
+        			dCountry.setText("Country: "+esp.getCountry());
+        			dBirthday.setText("Birthdate: "+esp.getBirthDay());
+        		}else {
+        			Alert a = new Alert(AlertType.INFORMATION);
+            		a.setContentText("Competitor with ID: " + id + " not found");
+            		a.show();
+        		}
+        		
+        	} else {
+        		Alert a = new Alert(AlertType.INFORMATION);
+        		a.setContentText("Please type an ID");
         		a.show();
-    		}
-    		
+        	}
     	} else {
     		Alert a = new Alert(AlertType.INFORMATION);
-    		a.setContentText("Please type an ID");
+    		a.setContentText("Please load a file with the assistants info first");
     		a.show();
     	}
-    	
     }
 
     @FXML
     void searchComp(ActionEvent event) {
-    	
-    	String id = idComp.getText();
-    	if(id != "" && id != null) {
-    		long start = System.currentTimeMillis();
-    		Competitor comp = e.searchCompetitor(id);
-    		long endTime = (System.currentTimeMillis() - start);
-           	timeCheck1.setText("Time: "+endTime);
-    		if(comp != null) {
-    			foundCompImg.setImage(new Image(comp.getPathForPhoto()));
-    		} else {
-    			Alert a = new Alert(AlertType.INFORMATION);
-        		a.setContentText("Competitor with ID: "+ id +" not found");
+    	if(e != null) {
+    		String id = idComp.getText();
+        	if(id != "" && id != null) {
+        		long start = System.currentTimeMillis();
+        		Competitor comp = e.searchCompetitor(id);
+        		long endTime = (System.currentTimeMillis() - start);
+               	timeCheck1.setText("Time: "+endTime);
+        		if(comp != null) {
+        			foundCompImg.setImage(new Image(comp.getPathForPhoto()));
+        		} else {
+        			Alert a = new Alert(AlertType.INFORMATION);
+            		a.setContentText("Competitor with ID: "+ id +" not found");
+            		a.show();
+        		}
+        		
+        	} else {
+        		Alert a = new Alert(AlertType.INFORMATION);
+        		a.setContentText("Please type an ID");
         		a.show();
-    		}
-    		
+        	}
     	} else {
     		Alert a = new Alert(AlertType.INFORMATION);
-    		a.setContentText("Please type an ID");
+    		a.setContentText("Please load a file with the assistants info first");
     		a.show();
     	}
-    	
     }
 
    
