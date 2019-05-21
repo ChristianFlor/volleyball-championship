@@ -163,20 +163,14 @@ public class VolleyballEventController {
     	}
     }
 
-   
-
     @FXML
     void spectators(ActionEvent event) {
+    	canva.getGraphicsContext2D().clearRect(0, 0, canva.getWidth(), canva.getHeight());
     	this.e.setWidth(canva.getWidth());
     	this.e.setHeight(canva.getHeight());
-
-    	/*for (int i = 0; i < 10; i++) {
-    		this.e.addNode(i);
-			//this.tree.addNode((int)(Math.random()*50));
-		}*/
     	this.e.assignePositions();
     	this.canva.getGraphicsContext2D().setLineWidth(3);
-    	double ny = e.getHeight()*90+50;
+    	double ny = e.getTreeHeight()*90+50;
     	if(ny > canva.getHeight()) {
     		canva.setHeight(ny);
     	}
@@ -184,6 +178,7 @@ public class VolleyballEventController {
     	this.canva.setWidth(e.getWidth());
     	draw(e.getRoot(), e.getRoot());
     }
+    
     public void draw(Espectator node, Espectator parent) {
     	if(node != null) {
     		canva.getGraphicsContext2D().strokeLine(parent.getX()+25, parent.getY()+25, node.getX()+25, node.getY()+25);
@@ -191,7 +186,7 @@ public class VolleyballEventController {
     		canva.getGraphicsContext2D().fillOval(node.getX(), node.getY(), 50, 50);
     		canva.getGraphicsContext2D().setFill(Color.BLACK);
     		canva.getGraphicsContext2D().strokeOval(node.getX(), node.getY(), 50, 50);
-    		canva.getGraphicsContext2D().fillText(node.getCountry()+"", node.getX()+25, node.getY()+25);
+    		canva.getGraphicsContext2D().fillText(node.getId()+"", node.getX()+25, node.getY()+25);
     		draw(node.getLeft(), node);
         	draw(node.getRight(), node);
     	}

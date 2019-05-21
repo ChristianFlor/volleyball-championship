@@ -14,6 +14,7 @@ public class Event {
 	private Espectator root;
 	private Competitor first;
 	private double width;
+	private double height;
 	public static final double INCREASEMENT = 90.0;
 	
 	public Event() {
@@ -35,7 +36,7 @@ public class Event {
 		br.close();
 	}
 	public void assignePositions() {
-		assignePositions(root, 0, this.getWidth(), 0, this.getHeight() / this.getHeight());
+		assignePositions(root, 0, this.getWidth(), 0, this.getHeight() / this.getTreeHeight());
 	}
 	
 	private void assignePositions(Espectator current, double xMin, double xMax, double yMin, double yMax) {
@@ -82,7 +83,6 @@ public class Event {
 		if(x >= width) {
 			this.width = x+20;
 		}
-		System.out.println(x);
 	}
 	
 	private double increaseBoundsX(Espectator current) {
@@ -130,8 +130,6 @@ public class Event {
 	public void addEspectator(Espectator a, Espectator current) {
 		if(root == null) {
 			root = a;
-			this.root.setX(width/2);
-			this.root.setY(50);
 		} else {
 			if(a.compareTo(current) < 0) {
 				if(current.getLeft() == null) {
@@ -277,17 +275,22 @@ public class Event {
 		this.width = width;
 	}
 
-	public int getHeight() {
-		return getHeight(root);
+	public int getTreeHeight() {
+		return getTreeHeight(root);
 	}
-	public int getHeight(Espectator current) {
+	public int getTreeHeight(Espectator current) {
 		if(current != null) {
-			return Math.max(getHeight(current.getLeft()), getHeight(current.getRight())) + 1;
+			return Math.max(getTreeHeight(current.getLeft()), getTreeHeight(current.getRight())) + 1;
 		}
 		return 0;
 	}
+	
+	public double getHeight() {
+		return height;
+	}
 
 	public void setHeight(double height) {
+		this.height = height;
 	}
 	
 }
