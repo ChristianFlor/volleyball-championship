@@ -9,32 +9,72 @@ import java.util.Random;
 
 public class Event {
 	
-	//public static final String DATA = "data/assistants-data.csv";
-
+	// -----------------------------------------------------------------
+    // Constants
+    // -----------------------------------------------------------------
+	public static final double INCREASEMENT = 90.0;
+	// -----------------------------------------------------------------
+    // Attributes
+    // -----------------------------------------------------------------
 	private Espectator root;
 	private Competitor first;
 	private double width;
 	private double height;
-	public static final double INCREASEMENT = 90.0;
-	
+	// -----------------------------------------------------------------
+    // Builder
+    // -----------------------------------------------------------------
 	public Event() {
 		
 	}
-	
-	public void load(String path) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String line = br.readLine();
-		line = br.readLine();
-		int limit = 0;
-		while(line != null && limit < 5) {
-			String[] info = line.split(",");
-			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
-			addEspectator(a);
-			line = br.readLine();
-			limit++;
-		}
-		br.close();
+	// -----------------------------------------------------------------
+    // Methods for add tree
+    // -----------------------------------------------------------------
+	public void addEspectator(Espectator a) {
+		addEspectator(a, root);
 	}
+
+	public void addEspectator(Espectator a, Espectator current) {
+		if(root == null) {
+			root = a;
+		} else {
+			if(a.compareTo(current) < 0) {
+				if(current.getLeft() == null) {
+					current.setLeft(a);
+				} else {
+					addEspectator(a, current.getLeft());
+				}
+			} else if(a.compareTo(current) > 0) {
+				if(current.getRight() == null) {
+					current.setRight(a);
+				} else {
+					addEspectator(a, current.getRight());
+				}
+			} else {
+				throw new IllegalArgumentException("Two assistants cannot have the same id");
+			}
+		}
+	}
+
+	public void addCompetitor(Competitor c) {
+		addCompetitor(c, first);
+	}
+	
+	private void addCompetitor(Competitor c, Competitor current) {
+		if(first == null) {
+			first = c;
+		} else {
+			if(current.getNext() == null) {
+				current.setNext(c);
+				c.setPrevious(current);
+			} else {
+				addCompetitor(c, current.getNext());
+			}
+		}
+	}
+	// -----------------------------------------------------------------
+    // Methods for show tree
+    // -----------------------------------------------------------------
+	
 	public void assignePositions() {
 		assignePositions(root, 0, this.getWidth(), 0, this.getHeight() / this.getTreeHeight());
 	}
@@ -123,31 +163,55 @@ public class Event {
 		}
 		return null;
 	}
-	public void addEspectator(Espectator a) {
-		addEspectator(a, root);
+	// -----------------------------------------------------------------
+    // Methods of model solution
+    // -----------------------------------------------------------------
+	public void load(String path) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		String line = br.readLine();
+		line = br.readLine();
+		int limit = 0;
+		while(line != null && limit < 5) {
+			String[] info = line.split(",");
+			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
+			addEspectator(a);
+			line = br.readLine();
+			limit++;
+		}
+		br.close();
 	}
 
-	public void addEspectator(Espectator a, Espectator current) {
-		if(root == null) {
-			root = a;
-		} else {
-			if(a.compareTo(current) < 0) {
-				if(current.getLeft() == null) {
-					current.setLeft(a);
-				} else {
-					addEspectator(a, current.getLeft());
-				}
-			} else if(a.compareTo(current) > 0) {
-				if(current.getRight() == null) {
-					current.setRight(a);
-				} else {
-					addEspectator(a, current.getRight());
-				}
-			} else {
-				throw new IllegalArgumentException("Two assistants cannot have the same id");
-			}
+	public List<Espectator> inorderListOfEspectators() {
+		return inorderListOfEspectators(root);
+	}
+	
+	private List<Espectator> inorderListOfEspectators(Espectator current){
+		List<Espectator> l = new ArrayList<Espectator>();
+		if(current != null) {
+			l.addAll(inorderListOfEspectators(current.getLeft()));
+			l.add(current);
+			l.addAll(inorderListOfEspectators(current.getRight()));
+		}
+		return l;
+	}
+	
+	public List<Espectator> preorderListOfEspectators(){
+		List<Espectator> lis= new ArrayList<>();
+		preorderListOfEspectators(root,lis);
+		return lis;
+	}
+	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
+		if(current != null) {
+			lis.add(current);
+			preorderListOfEspectators(current.getLeft(),lis);
+			preorderListOfEspectators(current.getRight(),lis);
+			
 		}
 	}
+	
+	// -----------------------------------------------------------------
+    // Methods for search in tree
+    // -----------------------------------------------------------------
 	
 	public Espectator searchEspectator(String id) {
 		return searchEspectator(id, root);
@@ -181,33 +245,6 @@ public class Event {
 		return null;
 	}
 	
-	public List<Espectator> inorderListOfEspectators() {
-		return inorderListOfEspectators(root);
-	}
-	
-	private List<Espectator> inorderListOfEspectators(Espectator current){
-		List<Espectator> l = new ArrayList<Espectator>();
-		if(current != null) {
-			l.addAll(inorderListOfEspectators(current.getLeft()));
-			l.add(current);
-			l.addAll(inorderListOfEspectators(current.getRight()));
-		}
-		return l;
-	}
-	
-	public List<Espectator> preorderListOfEspectators(){
-		List<Espectator> lis= new ArrayList<>();
-		preorderListOfEspectators(root,lis);
-		return lis;
-	}
-	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
-		if(current != null) {
-			lis.add(current);
-			preorderListOfEspectators(current.getLeft(),lis);
-			preorderListOfEspectators(current.getRight(),lis);
-			
-		}
-	}
 	
 	public void selectCompetitors() {
 		selectCompetitors(root);
@@ -224,22 +261,6 @@ public class Event {
 		}
 	}
 	
-	public void addCompetitor(Competitor c) {
-		addCompetitor(c, first);
-	}
-	
-	private void addCompetitor(Competitor c, Competitor current) {
-		if(first == null) {
-			first = c;
-		} else {
-			if(current.getNext() == null) {
-				current.setNext(c);
-				c.setPrevious(current);
-			} else {
-				addCompetitor(c, current.getNext());
-			}
-		}
-	}
 	
 	public List<Competitor> listOfCompetitors(){
 		List<Competitor> l = new ArrayList<Competitor>();
@@ -250,6 +271,9 @@ public class Event {
 		}
 		return l;
 	}
+	// -----------------------------------------------------------------
+    // Methods Atributes
+    // -----------------------------------------------------------------
 	
 	public Espectator getRoot() {
 		return root;

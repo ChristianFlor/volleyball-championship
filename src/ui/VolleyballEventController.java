@@ -66,7 +66,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    void explore(ActionEvent event) {
+    public void explore(ActionEvent event) {
     	JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
             "CSV FILE", "csv");
@@ -80,7 +80,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    void load(ActionEvent event) {
+    public void load(ActionEvent event) {
     	if(dataPath.getText() == "" || dataPath.getText() == null) {
     		Alert a = new Alert(AlertType.ERROR);
     		a.setContentText("The path hasn't been chosen");
@@ -100,7 +100,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    void searchEspec(ActionEvent event) {
+    public void searchEspec(ActionEvent event) {
     	if(e != null) {
     		String id = idEspec.getText();
         	long start = System.currentTimeMillis();
@@ -135,7 +135,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    void searchComp(ActionEvent event) {
+    public void searchComp(ActionEvent event) {
     	if(e != null) {
     		String id = idComp.getText();
         	if(id != "" && id != null) {
@@ -164,7 +164,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    void spectators(ActionEvent event) {
+    public void spectators(ActionEvent event) {
     	canva.getGraphicsContext2D().clearRect(0, 0, canva.getWidth(), canva.getHeight());
     	this.e.setWidth(canva.getWidth());
     	this.e.setHeight(canva.getHeight());
@@ -192,7 +192,7 @@ public class VolleyballEventController {
     	}
     }
     @FXML
-    void participants(ActionEvent event) {
+    public void participants(ActionEvent event) {
     	
     }
 }
