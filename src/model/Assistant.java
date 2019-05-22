@@ -1,9 +1,7 @@
 package model;
 
 public class Assistant implements Comparable<Assistant> {
-	// -----------------------------------------------------------------
-    // Attributes
-    // -----------------------------------------------------------------
+	
 	private String firstName;
 	private String lastName;
 	private String id;
@@ -12,11 +10,10 @@ public class Assistant implements Comparable<Assistant> {
 	private String country;
 	private String pathForPhoto;
 	private SimpleDate birthDay;
+	
 	private double x;
 	private double y;
-	// -----------------------------------------------------------------
-    // Builder
-    // -----------------------------------------------------------------
+	
 	public Assistant(String id ,String firstName, String lastName, String email, String gender,
 			String country, String pathForPhoto, SimpleDate birthDay) {
 		this.firstName = firstName;
@@ -30,10 +27,7 @@ public class Assistant implements Comparable<Assistant> {
 		this.setX(x);
 		this.setY(y);
 	}
-	// -----------------------------------------------------------------
-    // Methods Atributes
-    // -----------------------------------------------------------------
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -97,6 +91,21 @@ public class Assistant implements Comparable<Assistant> {
 	public void setBirthDay(SimpleDate birthDay) {
 		this.birthDay = birthDay;
 	}
+	
+	@Override
+	public int compareTo(Assistant a) {
+		return this.id.compareTo(a.id);
+	}
+	
+	@Override
+	public String toString() {
+		return "FN: " + firstName + "\t ID: " + id + "\n";
+	}
+
+	public static Competitor cast(Espectator c) {
+		return new Competitor(c.getId(), c.getFirstName(), c.getLastName(), c.getEmail(), c.getGender(), c.getCountry(), c.getPathForPhoto(), c.getBirthDay());
+	}
+
 	public double getX() {
 		return x;
 	}
@@ -112,26 +121,4 @@ public class Assistant implements Comparable<Assistant> {
 	public void setY(double y) {
 		this.y = y;
 	}
-	// -----------------------------------------------------------------
-    // Method for sort
-    // -----------------------------------------------------------------
-	
-	@Override
-	public int compareTo(Assistant a) {
-		return this.id.compareTo(a.id);
-	}
-	// -----------------------------------------------------------------
-    // Methods
-    // -----------------------------------------------------------------
-	
-	@Override
-	public String toString() {
-		return "FN: " + firstName + "\t ID: " + id + "\n";
-	}
-
-	public static Competitor cast(Espectator c) {
-		return new Competitor(c.getId(), c.getFirstName(), c.getLastName(), c.getEmail(), c.getGender(), c.getCountry(), c.getPathForPhoto(), c.getBirthDay());
-	}
-
-	
 }

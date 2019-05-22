@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -19,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 
 public class VolleyballEventController {
 	private Event e;
@@ -66,7 +66,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    public void explore(ActionEvent event) {
+    void explore(ActionEvent event) {
     	JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
             "CSV FILE", "csv");
@@ -75,12 +75,11 @@ public class VolleyballEventController {
         if(returnVal == JFileChooser.APPROVE_OPTION) {
         	String path = chooser.getCurrentDirectory().getPath();
         	dataPath.setText(path + File.separator + chooser.getSelectedFile().getName());
-        	
         }
     }
 
     @FXML
-    public void load(ActionEvent event) {
+    void load(ActionEvent event) {
     	if(dataPath.getText() == "" || dataPath.getText() == null) {
     		Alert a = new Alert(AlertType.ERROR);
     		a.setContentText("The path hasn't been chosen");
@@ -93,14 +92,18 @@ public class VolleyballEventController {
 				Alert a = new Alert(AlertType.CONFIRMATION);
 	    		a.setContentText("The data is load correct");
 	    		a.show();
-			} catch (IOException e1) {
+			} catch(FileNotFoundException e) {
+				Alert a = new Alert(AlertType.INFORMATION);
+	    		a.setContentText("Please provide a filepath first");
+	    		a.show();
+    		} catch (IOException e1) {
 				e1.printStackTrace();
 			}
     	}
     }
 
     @FXML
-    public void searchEspec(ActionEvent event) {
+    void searchEspec(ActionEvent event) {
     	if(e != null) {
     		String id = idEspec.getText();
         	long start = System.currentTimeMillis();
@@ -135,7 +138,7 @@ public class VolleyballEventController {
     }
 
     @FXML
-    public void searchComp(ActionEvent event) {
+    void searchComp(ActionEvent event) {
     	if(e != null) {
     		String id = idComp.getText();
         	if(id != "" && id != null) {
@@ -145,6 +148,12 @@ public class VolleyballEventController {
                	timeCheck1.setText("Time: "+endTime);
         		if(comp != null) {
         			foundCompImg.setImage(new Image(comp.getPathForPhoto()));
+        			dFirstName.setText("Name: "+comp.getFirstName());
+        			dLastName.setText("Last Name: "+comp.getLastName());
+        			dEmail.setText("Email: "+comp.getEmail());
+        			dGender.setText("Gender: "+comp.getGender());
+        			dCountry.setText("Country: "+comp.getCountry());
+        			dBirthday.setText("Birthdate: "+comp.getBirthDay());
         		} else {
         			Alert a = new Alert(AlertType.INFORMATION);
             		a.setContentText("Competitor with ID: "+ id +" not found");
@@ -164,35 +173,86 @@ public class VolleyballEventController {
     }
 
     @FXML
-    public void spectators(ActionEvent event) {
-    	canva.getGraphicsContext2D().clearRect(0, 0, canva.getWidth(), canva.getHeight());
-    	this.e.setWidth(canva.getWidth());
-    	this.e.setHeight(canva.getHeight());
-    	this.e.assignePositions();
-    	this.canva.getGraphicsContext2D().setLineWidth(3);
-    	double ny = e.getTreeHeight()*90+50;
-    	if(ny > canva.getHeight()) {
-    		canva.setHeight(ny);
+    void spectators(ActionEvent event) {
+    	if(e!= null) {
+    		canva.getGraphicsContext2D().clearRect(0, 0, canva.getWidth(), canva.getHeight());
+        	this.e.setWidth(canva.getWidth());
+        	this.e.setHeight(canva.getHeight());
+        	this.e.assignePositions();
+        	this.canva.getGraphicsContext2D().setLineWidth(3);
+        	double ny = e.getTreeHeight()*90+50;
+        	if(ny > canva.getHeight()) {
+        		canva.setHeight(ny);
+        	}
+        	e.increaseBounds();
+        	this.canva.setWidth(e.getWidth());
+        	drawLinesForTree(e.getRoot(), e.getRoot());
+        	drawImagesForTree(e.getRoot(), e.getRoot());
+    	} else {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Please load a file with the assistants info first");
+    		a.show();
     	}
-    	e.increaseBounds();
-    	this.canva.setWidth(e.getWidth());
-    	draw(e.getRoot(), e.getRoot());
     }
     
-    public void draw(Espectator node, Espectator parent) {
+    public void drawImagesForTree(Espectator node, Espectator parent) {
     	if(node != null) {
-    		canva.getGraphicsContext2D().strokeLine(parent.getX()+25, parent.getY()+25, node.getX()+25, node.getY()+25);
-    		canva.getGraphicsContext2D().setFill(Color.YELLOW);
-    		canva.getGraphicsContext2D().fillOval(node.getX(), node.getY(), 50, 50);
-    		canva.getGraphicsContext2D().setFill(Color.BLACK);
-    		canva.getGraphicsContext2D().strokeOval(node.getX(), node.getY(), 50, 50);
-    		canva.getGraphicsContext2D().fillText(node.getId()+"", node.getX()+25, node.getY()+25);
-    		draw(node.getLeft(), node);
-        	draw(node.getRight(), node);
+    		canva.getGraphicsContext2D().drawImage(new Image(node.getPathForPhoto()), node.getX(), node.getY());
+    		canva.getGraphicsContext2D().fillText(node.getId()+"", node.getX(), node.getY()+30);
+    		drawImagesForTree(node.getLeft(), node);
+    		drawImagesForTree(node.getRight(), node);
     	}
     }
-    @FXML
-    public void participants(ActionEvent event) {
-    	
+    
+    public void drawLinesForTree(Espectator node, Espectator parent) {
+    	if(node != null) {
+    		canva.getGraphicsContext2D().strokeLine(parent.getX()+25, parent.getY()+25, node.getX()+25, node.getY()+25);
+    		drawLinesForTree(node.getLeft(), node);
+    		drawLinesForTree(node.getRight(), node);
+    	}
     }
+    
+    @FXML
+    void participants(ActionEvent event) {
+    	if(e!= null) {
+    		canva.getGraphicsContext2D().clearRect(0, 0, canva.getWidth(), canva.getHeight());
+        	this.e.setWidth(canva.getWidth());
+        	this.e.setHeight(canva.getHeight());
+        	this.e.assignePositionsList();
+        	this.canva.getGraphicsContext2D().setLineWidth(3);
+        	double ny = e.getTreeHeight()*90+50;
+        	if(ny > canva.getHeight()) {
+        		canva.setHeight(ny);
+        	}
+        	e.increaseBounds();
+        	this.canva.setWidth(e.getWidth());
+        	drawLinesForList(e.getFirst());
+        	drawImagesForList(e.getFirst());
+    	} else {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Please load a file with the assistants info first");
+    		a.show();
+    	}
+    }
+    
+    public void drawImagesForList(Competitor node) {
+    	if(node != null) {
+    		canva.getGraphicsContext2D().drawImage(new Image(node.getPathForPhoto()), node.getX(), node.getY());
+    		canva.getGraphicsContext2D().fillText(node.getId()+"", node.getX(), node.getY());
+    		drawImagesForList(node.getNext());
+    	}
+    }
+    
+    public void drawLinesForList(Competitor node) {
+    	if(node != null) {
+    		if(node.getNext() != null) {
+    			canva.getGraphicsContext2D().strokeLine(node.getX()+25, node.getY()+25, node.getNext().getX()+25, node.getNext().getY()+25);
+    		}
+    		if(node.getPrevious() != null) {
+    			canva.getGraphicsContext2D().strokeLine(node.getX()+25, node.getY()+50, node.getPrevious().getX()+25, node.getPrevious().getY()+50);
+    		}
+    		drawLinesForList(node.getNext());
+    	}
+    }
+    
 }

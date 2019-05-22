@@ -1,23 +1,16 @@
 package model;
 
 public class Espectator extends Assistant {
-	// -----------------------------------------------------------------
-    // Attributes
-    // -----------------------------------------------------------------
+
 	private Espectator left;
 	private Espectator right;
-	// -----------------------------------------------------------------
-    // Builder
-    // -----------------------------------------------------------------
+	
 	public Espectator(String id, String firstName, String lastName, String email, String gender, String country,
 			String pathForPhoto, SimpleDate birthDay) {
 		super(id, firstName, lastName, email, gender, country, pathForPhoto, birthDay);
 		
 	}
-	// -----------------------------------------------------------------
-    // Methods Atributes
-    // -----------------------------------------------------------------
-	
+
 	public Espectator getLeft() {
 		return left;
 	}
@@ -32,6 +25,30 @@ public class Espectator extends Assistant {
 
 	public void setRight(Espectator right) {
 		this.right = right;
+	}
+	
+	public void replaceData(Espectator esp) {
+		super.setFirstName(esp.getFirstName());
+		super.setBirthDay(esp.getBirthDay());
+		super.setCountry(esp.getCountry());
+		super.setEmail(esp.getEmail());
+		super.setGender(esp.getGender());
+		super.setId(esp.getId());
+		super.setLastName(esp.getLastName());
+		super.setPathForPhoto(esp.getPathForPhoto());
+		super.setX(esp.getX());
+		super.setY(esp.getY());
+	}
+	
+	public int getWeight() {
+		int weight = 1;
+		if(left != null) {
+			weight += left.getWeight();
+		}
+		if(right != null) {
+			weight += right.getWeight();
+		}
+		return weight;
 	}
 
 }

@@ -9,72 +9,32 @@ import java.util.Random;
 
 public class Event {
 	
-	// -----------------------------------------------------------------
-    // Constants
-    // -----------------------------------------------------------------
-	public static final double INCREASEMENT = 90.0;
-	// -----------------------------------------------------------------
-    // Attributes
-    // -----------------------------------------------------------------
+	//public static final String DATA = "data/assistants-data.csv";
+
 	private Espectator root;
 	private Competitor first;
 	private double width;
 	private double height;
-	// -----------------------------------------------------------------
-    // Builder
-    // -----------------------------------------------------------------
+	public static final double INCREASEMENT = 90.0;
+	
 	public Event() {
 		
 	}
-	// -----------------------------------------------------------------
-    // Methods for add tree
-    // -----------------------------------------------------------------
-	public void addEspectator(Espectator a) {
-		addEspectator(a, root);
-	}
-
-	public void addEspectator(Espectator a, Espectator current) {
-		if(root == null) {
-			root = a;
-		} else {
-			if(a.compareTo(current) < 0) {
-				if(current.getLeft() == null) {
-					current.setLeft(a);
-				} else {
-					addEspectator(a, current.getLeft());
-				}
-			} else if(a.compareTo(current) > 0) {
-				if(current.getRight() == null) {
-					current.setRight(a);
-				} else {
-					addEspectator(a, current.getRight());
-				}
-			} else {
-				throw new IllegalArgumentException("Two assistants cannot have the same id");
-			}
-		}
-	}
-
-	public void addCompetitor(Competitor c) {
-		addCompetitor(c, first);
-	}
 	
-	private void addCompetitor(Competitor c, Competitor current) {
-		if(first == null) {
-			first = c;
-		} else {
-			if(current.getNext() == null) {
-				current.setNext(c);
-				c.setPrevious(current);
-			} else {
-				addCompetitor(c, current.getNext());
-			}
+	public void load(String path) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		String line = br.readLine();
+		line = br.readLine();
+		int limit = 0;
+		while(line != null && limit < 20) {
+			String[] info = line.split(",");
+			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
+			addEspectator(a);
+			line = br.readLine();
+			limit++;
 		}
+		br.close();
 	}
-	// -----------------------------------------------------------------
-    // Methods for show tree
-    // -----------------------------------------------------------------
-	
 	public void assignePositions() {
 		assignePositions(root, 0, this.getWidth(), 0, this.getHeight() / this.getTreeHeight());
 	}
@@ -145,73 +105,32 @@ public class Event {
 		}
 		return 0;
 	}
-	public Espectator parent(Espectator node) {
-		return parent(node, root);
-	}
-	
-	private Espectator parent(Espectator node, Espectator current) {
-		if(node != current) {
-			if(current.getLeft() == node || current.getRight() == node) {
-				return current;
-			} else {
-				if(node.getCountry().compareTo(current.getCountry()) <= 0) {
-					return parent(node, current.getLeft());
-				} else {
-					return parent(node, current.getRight());
-				}
-			}
-		}
-		return null;
-	}
-	// -----------------------------------------------------------------
-    // Methods of model solution
-    // -----------------------------------------------------------------
-	public void load(String path) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String line = br.readLine();
-		line = br.readLine();
-		int limit = 0;
-		while(line != null && limit < 5) {
-			String[] info = line.split(",");
-			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
-			addEspectator(a);
-			line = br.readLine();
-			limit++;
-		}
-		br.close();
+
+	public void addEspectator(Espectator a) {
+		addEspectator(a, root);
 	}
 
-	public List<Espectator> inorderListOfEspectators() {
-		return inorderListOfEspectators(root);
-	}
-	
-	private List<Espectator> inorderListOfEspectators(Espectator current){
-		List<Espectator> l = new ArrayList<Espectator>();
-		if(current != null) {
-			l.addAll(inorderListOfEspectators(current.getLeft()));
-			l.add(current);
-			l.addAll(inorderListOfEspectators(current.getRight()));
-		}
-		return l;
-	}
-	
-	public List<Espectator> preorderListOfEspectators(){
-		List<Espectator> lis= new ArrayList<>();
-		preorderListOfEspectators(root,lis);
-		return lis;
-	}
-	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
-		if(current != null) {
-			lis.add(current);
-			preorderListOfEspectators(current.getLeft(),lis);
-			preorderListOfEspectators(current.getRight(),lis);
-			
+	public void addEspectator(Espectator a, Espectator current) {
+		if(root == null) {
+			root = a;
+		} else {
+			if(a.compareTo(current) < 0) {
+				if(current.getLeft() == null) {
+					current.setLeft(a);
+				} else {
+					addEspectator(a, current.getLeft());
+				}
+			} else if(a.compareTo(current) > 0) {
+				if(current.getRight() == null) {
+					current.setRight(a);
+				} else {
+					addEspectator(a, current.getRight());
+				}
+			} else {
+				throw new IllegalArgumentException("Two assistants cannot have the same id");
+			}
 		}
 	}
-	
-	// -----------------------------------------------------------------
-    // Methods for search in tree
-    // -----------------------------------------------------------------
 	
 	public Espectator searchEspectator(String id) {
 		return searchEspectator(id, root);
@@ -245,22 +164,112 @@ public class Event {
 		return null;
 	}
 	
-	
-	public void selectCompetitors() {
-		selectCompetitors(root);
+	public List<Espectator> inorderListOfEspectators() {
+		return inorderListOfEspectators(root);
 	}
 	
-	private void selectCompetitors(Espectator current) {
+	private List<Espectator> inorderListOfEspectators(Espectator current){
+		List<Espectator> l = new ArrayList<Espectator>();
 		if(current != null) {
-			Random r = new Random();
-			selectCompetitors(current.getLeft());
-			if(r.nextBoolean()) {
-				addCompetitor(Assistant.cast(current));
-			}
-			selectCompetitors(current.getRight());
+			l.addAll(inorderListOfEspectators(current.getLeft()));
+			l.add(current);
+			l.addAll(inorderListOfEspectators(current.getRight()));
+		}
+		return l;
+	}
+	
+	public List<Espectator> preorderListOfEspectators(){
+		List<Espectator> lis= new ArrayList<>();
+		preorderListOfEspectators(root,lis);
+		return lis;
+	}
+	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
+		if(current != null) {
+			lis.add(current);
+			preorderListOfEspectators(current.getLeft(),lis);
+			preorderListOfEspectators(current.getRight(),lis);
+			
 		}
 	}
 	
+	public void assignePositionsList() {
+		double x = this.width/this.first.size();
+		double y = this.height/2;
+		assignePositionsList(first, x, y);
+	}
+	
+	
+	
+	private void assignePositionsList(Competitor current, double x, double y) {
+		if(current != null) {
+			current.setX(x);
+			current.setY(y);
+			assignePositionsList(current.getNext(), x + 80, y);
+		}
+	}
+
+	public void selectCompetitors() {
+		selectCompetitors(root, root.getWeight()/2-1);
+	}
+	
+	private void selectCompetitors(Espectator current, int limit) {
+		if(limit > 0) {
+			if(current != null) {
+				Random r = new Random();
+				if(r.nextBoolean()) {
+					addCompetitor(Assistant.cast(current));
+					delete(root, current);
+					limit--;
+				}
+				selectCompetitors(current.getLeft(), limit);
+				selectCompetitors(current.getRight(), limit);
+			}
+		}
+	}
+	
+	public Espectator delete(Espectator current, Espectator esp) {
+		if (current == null) {
+			return null;
+		} else if (current.compareTo(esp) > 0) { // find the node
+			current.setLeft(delete(current.getLeft(), esp));
+		} else if (current.compareTo(esp) < 0) {
+			current.setRight(delete(current.getRight(), esp));
+		} else {            
+			if (current.getRight() == null) {
+				return current.getLeft();    //replace with left child
+			} else if (current.getLeft() == null) {
+				return current.getRight();   // replace with right child
+			} else {                // replace with min from right subtree
+				current.replaceData(getMin(current.getRight()));
+				current.setRight(delete(current.getRight(), current));
+			}
+		}
+		return current; 
+	}
+	
+	private Espectator getMin(Espectator current) {
+		if(current.getLeft() != null) {
+			return getMin(current.getLeft());
+		}
+		return current;
+	}
+	
+	public void addCompetitor(Competitor c) {
+		addCompetitor(c, first);
+	}
+	
+	private void addCompetitor(Competitor c, Competitor current) {
+		if(first == null) {
+			first = c;
+		} else {
+			if(current.getNext() == null) {
+				current.setNext(c);
+				c.setPrevious(current);
+			} else {
+				addCompetitor(c, current.getNext());
+			}
+		}
+	}
 	
 	public List<Competitor> listOfCompetitors(){
 		List<Competitor> l = new ArrayList<Competitor>();
@@ -271,9 +280,6 @@ public class Event {
 		}
 		return l;
 	}
-	// -----------------------------------------------------------------
-    // Methods Atributes
-    // -----------------------------------------------------------------
 	
 	public Espectator getRoot() {
 		return root;
