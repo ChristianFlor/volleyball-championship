@@ -61,9 +61,7 @@ public class VolleyballEventController {
     @FXML
     private Canvas canva;
     @FXML
-    public void initialize() {
-    	
-    }
+    private TextField country;
 
     @FXML
     void explore(ActionEvent event) {
@@ -170,6 +168,11 @@ public class VolleyballEventController {
     		a.setContentText("Please load a file with the assistants info first");
     		a.show();
     	}
+    }
+
+    @FXML
+    void searchCountry(ActionEvent event) {
+
     }
 
     @FXML
