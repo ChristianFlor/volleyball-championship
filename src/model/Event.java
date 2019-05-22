@@ -49,34 +49,6 @@ public class Event {
 			assignePositions(current.getRight(), (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
 		}
 	}
-	public Espectator min(Espectator current) {
-		if(current.getLeft() != null) {
-			return min(current.getLeft());
-		}
-		return current;
-	}
-	
-	public Espectator max(Espectator current) {
-		if(current.getRight() != null) {
-			return min(current.getRight());
-		}
-		return current;
-	}
-	@Override
-	public String toString() {
-		return printNodes(root);
-	}
-	
-	public String printNodes(Espectator current) {
-		String s = "";
-		if(current != null) {
-			s += printNodes(current.getLeft());
-			s += "Node: " + current + " Left: " + current.getLeft() 
-					+ " Right: " + current.getRight() + "\n~~~~~~~~~~~~~~~~~~~~~~~~\n";
-			s += printNodes(current.getRight());
-		}
-		return s;
-	}
 	
 	public void increaseBounds() {
 		double x = increaseBoundsX(root);
@@ -164,34 +136,6 @@ public class Event {
 		return null;
 	}
 	
-	public List<Espectator> inorderListOfEspectators() {
-		return inorderListOfEspectators(root);
-	}
-	
-	private List<Espectator> inorderListOfEspectators(Espectator current){
-		List<Espectator> l = new ArrayList<Espectator>();
-		if(current != null) {
-			l.addAll(inorderListOfEspectators(current.getLeft()));
-			l.add(current);
-			l.addAll(inorderListOfEspectators(current.getRight()));
-		}
-		return l;
-	}
-	
-	public List<Espectator> preorderListOfEspectators(){
-		List<Espectator> lis= new ArrayList<>();
-		preorderListOfEspectators(root,lis);
-		return lis;
-	}
-	private void preorderListOfEspectators(Espectator current,List<Espectator> lis){
-		if(current != null) {
-			lis.add(current);
-			preorderListOfEspectators(current.getLeft(),lis);
-			preorderListOfEspectators(current.getRight(),lis);
-			
-		}
-	}
-	
 	public void assignePositionsList() {
 		double x = this.width/this.first.size();
 		double y = this.height/2;
@@ -269,16 +213,6 @@ public class Event {
 				addCompetitor(c, current.getNext());
 			}
 		}
-	}
-	
-	public List<Competitor> listOfCompetitors(){
-		List<Competitor> l = new ArrayList<Competitor>();
-		Competitor current = first;
-		while(current != null) {
-			l.add(current);
-			current = current.getNext();
-		}
-		return l;
 	}
 	
 	public Espectator getRoot() {
