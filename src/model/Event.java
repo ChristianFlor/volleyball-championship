@@ -3,13 +3,9 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Event {
-	
-	//public static final String DATA = "data/assistants-data.csv";
 
 	private Espectator root;
 	private Competitor first;
@@ -25,13 +21,16 @@ public class Event {
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		String line = br.readLine();
 		line = br.readLine();
-		int limit = 0;
-		while(line != null && limit < 20) {
+		while(line != null) {
 			String[] info = line.split(",");
-			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6], new SimpleDate(Long.parseLong(info[7])));
+			String[] date = info[7].split("/");
+			int day = Integer.parseInt(date[1]),
+					month = Integer.parseInt(date[0]), 
+					year = Integer.parseInt(date[2].replace(";", ""));
+			Espectator a = new Espectator(info[0], info[1], info[2], info[3], info[4], info[5], info[6],
+					new SimpleDate(month, day, year));
 			addEspectator(a);
 			line = br.readLine();
-			limit++;
 		}
 		br.close();
 	}
@@ -86,7 +85,7 @@ public class Event {
 		if(root == null) {
 			root = a;
 		} else {
-			if(a.compareTo(current) < 0) {
+			if(a.compareTo(current) <= 0) {
 				if(current.getLeft() == null) {
 					current.setLeft(a);
 				} else {
@@ -98,8 +97,6 @@ public class Event {
 				} else {
 					addEspectator(a, current.getRight());
 				}
-			} else {
-				throw new IllegalArgumentException("Two assistants cannot have the same id");
 			}
 		}
 	}

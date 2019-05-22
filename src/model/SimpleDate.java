@@ -13,6 +13,10 @@ public class SimpleDate extends Date {
 		super(date);
 		// TODO Auto-generated constructor stub
 	}
+	@SuppressWarnings("deprecation")
+	public SimpleDate(int month, int day, int year) {
+		super(year, month, day);
+	}
 	@Override
 	public String toString() {
 		String[] date = super.toString().split(" ");

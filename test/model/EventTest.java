@@ -1,7 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 
@@ -12,11 +11,11 @@ class EventTest {
 	private String path;
 	private void setUpScenary1() {
 		e=new Event();
-		path="C:\\Users\\chris\\OneDrive\\Documentos\\projects\\volleyball-championship\\data\\assistants-data.csv";
+		path="data/assistants-data.csv";
 	}
 	private void setUpScenary2() {
 		e=new Event();
-		path="C:\\Users\\chris\\OneDrive\\Documentos\\projects\\volleyball-championship\\data\\assitants1-data.csv";
+		path="data/assistants1-data";
 	}
 	@Test
 	public void testLoad() {
