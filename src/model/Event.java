@@ -21,7 +21,8 @@ public class Event {
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		String line = br.readLine();
 		line = br.readLine();
-		while(line != null) {
+		int limit = 0;
+		while(line != null && limit < 9000) {
 			String[] info = line.split(",");
 			String[] date = info[7].split("/");
 			int day = Integer.parseInt(date[1]),
@@ -31,6 +32,7 @@ public class Event {
 					new SimpleDate(month, day, year));
 			addEspectator(a);
 			line = br.readLine();
+			limit++;
 		}
 		br.close();
 	}

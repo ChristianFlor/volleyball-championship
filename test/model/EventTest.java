@@ -14,20 +14,7 @@ class EventTest {
 		e=new Event();
 		path="data/assistants1-data";
 	}
-	@Test
-	public void testLoad() {
-		setUpScenary1();
-		try {
-			long start = System.currentTimeMillis();
-			e.load(path);
-			long endTime = (System.currentTimeMillis() - start);
-			System.out.println(endTime);
-			assertTrue("The method load of 1000 assitants is delayed", endTime>10);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	@Test
 	public void testLoad2() {
 		setUpScenary2();
@@ -44,13 +31,13 @@ class EventTest {
 	}
 	@Test
 	public void testSearchCompetitor() {
-		setUpScenary1();
+		setUpScenary2();
 		try {
 
 			e.load(path);
-			e.searchCompetitor("84-5845425");
+			e.searchCompetitor("08-2246044");
 
-			assertTrue("The method search do not find",e.searchCompetitor("84-5845425") != null);
+			assertTrue("The method search do not find",e.searchCompetitor("08-2246044") != null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,13 +45,13 @@ class EventTest {
 	}
 	@Test
 	public void testSearchEspectator() {
-		setUpScenary1();
+		setUpScenary2();
 		try {
 
 			e.load(path);
-			e.searchEspectator("61-4354647");
+			e.searchEspectator("36-5207000");
 
-			assertTrue("The method search do not find",e.searchEspectator("61-4354647") != null);
+			assertTrue("The method search do not find",e.searchEspectator("36-5207000") != null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
